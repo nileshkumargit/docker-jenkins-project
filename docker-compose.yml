@@ -1,26 +1,27 @@
+---
 version: "3.8"
 services:
   movies:
-    image: nileshkumar2343/paymovies:latest
+    image: nileshkumar2343/paytm_movies:latest
     ports:
-      - 85:80
+      - 61:80
     deploy:
       replicas: 3
   train:
-    image: nileshkumar2343/paytrain:latest
+    image: nileshkumar2343/paytm_train:latest
     ports:
-      - 86:80
+      - 62:80
     deploy:
       replicas: 3
   dth:
-    image: nileshkumar2343/paydth:latest
+    image: nileshkumar2343/paytm_dth:latest
     ports:
-      - 87:80
+      - 63:80
     deploy:
       replicas: 3
   recharge:
-    image: nileshkumar2343/payrecharge:latest
+    image: nileshkumar2343/paytm_recharge:latest
     ports:
-      - 88:80
+      - 64:80
     deploy:
       replicas: 3
