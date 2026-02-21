@@ -52,17 +52,17 @@ INDEX.HTML:
 PIPELINE:
 
 pipeline {
-    agent any 
+    agent any
     
     stages {
         stage('checkout') {
             steps {
-                git 'https://github.com/RAHAMSHAIK007/dockernewproject.git'
+                git 'https://github.com/nileshkumargit/docker-jenkins-project.git'
             }
         }
         stage('build') {
             steps {
-                sh 'docker build -t $img .'
+                sh 'docker build -t $img ./'
             }
         }
         stage('tag') {
@@ -72,13 +72,12 @@ pipeline {
         }
         stage('push') {
             steps {
-                sh 'docker login -u  -p '
+                sh 'docker login -u nileshkumar2343 -p $password'
                 sh 'docker push $repo'
             }
         }
     }
 }
-
 
 4. GIVE PERMISSIONS
 
@@ -89,40 +88,31 @@ systemctl restart docker.service
 
 5. WRITE COMPOSE FILE AND PUSH TO GITHUB
 
-version: '3'
+---
+version: "3.8"
 services:
-  devops:
-    image: rahamshaik/devopsreponit:latest
+  movies:
+    image: nileshkumar2343/paytm_movies:latest
     ports:
-      - "80:80"
-    volumes:
-      - "devopsvol"
+      - 61:80
+    deploy:
+      replicas: 3
+  train:
+    image: nileshkumar2343/paytm_train:latest
+    ports:
+      - 62:80
+    deploy:
+      replicas: 3
+  dth:
+    image: nileshkumar2343/paytm_dth:latest
+    ports:
+      - 63:80
+    deploy:
+      replicas: 3
+  recharge:
+    image: nileshkumar2343/paytm_recharge:latest
+    ports:
+      - 64:80
     deploy:
       replicas: 3
 
-  aws:
-    image: rahamshaik/awsreponit:latest
-    ports:
-      - "81:80"
-    volumes:
-      - "awsvol"
-    deploy:
-      replicas: 3
-
-  datascience:
-    image: rahamshaik/datasciencereponit:latest
-    ports:
-      - "82:80"
-    volumes:
-      - "datasciencevol"
-    deploy:
-      replicas: 3
-
-  azure:
-    image: rahamshaik/azurereponit:latest
-    ports:
-      - "83:80"
-    volumes:
-      - "azurevol"
-    deploy:
-      replicas: 3
